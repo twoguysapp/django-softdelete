@@ -34,6 +34,10 @@ Requirements:
 
 ## Installation
 
+To install this particular fork you can run:
+
+    pip install "git+git://github.com/shaflidason/django-softdelete.git#egg=django-softdelete"
+
  1. Add `'softdelete'` to your `INSTALLED_APPS`.
  2. Have your models extend from `softdelete.models.SoftDeleteObject`. If you have existing models,
 use Django South to create a schema migration to add the `deleted_at` Datetime field to each
