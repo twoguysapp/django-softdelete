@@ -24,6 +24,11 @@ Soft delete for Django ORM, with support for undelete.
    models such as `django.contrib.auth.models.User`. If this
    is required then django-reversion might be a better fit.
 
+## Gotchas
+
+ * If you override a model's default manager, ensure that you
+   inherit from `softdelete.models.SoftDeleteManager`.
+
 Can be tested directly with the following command:
 
     django-admin.py test softdelete --settings="softdelete.settings"
