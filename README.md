@@ -18,6 +18,12 @@ by staff.
 
 Soft delete for Django ORM, with support for undelete.
 
+## Limitations
+
+ * No facility (at present) to provide undelete for 3rd-party
+   models such as `django.contrib.auth.models.User`. If this
+   is required then django-reversion might be a better fit.
+
 Can be tested directly with the following command:
 
     django-admin.py test softdelete --settings="softdelete.settings"
