@@ -28,7 +28,7 @@ class ProtectedView(object):
 class ChangeSetList(ProtectedView, ListView):
     model = ChangeSet
 
-    def get_query_set(self):
+    def get_queryset(self):
         return model.objects.all()
 
 class ChangeSetDetail(ProtectedView, DetailView):
