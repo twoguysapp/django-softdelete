@@ -94,7 +94,7 @@ class SoftDeleteManager(models.Manager):
         return qs
 
 class SoftDeleteObject(models.Model):
-    deleted_at = models.DateTimeField(blank=True, null=True, default=None)
+    deleted_at = models.DateTimeField(blank=True, null=True, default=None, editable=False)
     objects = SoftDeleteManager()
     class Meta:
         abstract = True
