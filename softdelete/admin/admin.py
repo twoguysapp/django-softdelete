@@ -16,7 +16,7 @@ class SoftDeleteObjectInline(admin.TabularInline):
             self.extra = 0
             self.max_num = 0
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = self.model._default_manager.all_with_deleted()
         ordering = self.ordering or ()
         if ordering:
@@ -26,7 +26,7 @@ class SoftDeleteObjectInline(admin.TabularInline):
 class SoftDeleteObjectAdmin(admin.ModelAdmin):
     exclude = ( 'deleted_at', )
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         # Do not show deleted records by default.
         # The way to undelete records will either be
         # via a changeset or the individual soft-deletion
