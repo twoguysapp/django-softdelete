@@ -136,17 +136,13 @@ class SoftDeleteObject(models.Model):
         if not hasattr(self, related_field_name):
             return
 
+        instance = getattr(self, related_field_name)
+        instance_or_queryset = instance.all() if hasattr(instance, "all") else instance
+
         try:
-            getattr(self, related_field_name).all().delete(changeset=changeset)
-        except:
-            try:
-                getattr(self, related_field_name).all().delete()
-            except:
-                try:
-                    getattr(self, related_field_name).__class__.objects.all().delete(
-                        changeset=changeset)
-                except:
-                    getattr(self, related_field_name).__class__.objects.all().delete()
+            instance_or_queryset.delete(changeset=changeset)
+        except TypeError:
+            instance_or_queryset.delete()
 
     def delete(self, *args, **kwargs):
         if self.deleted_at:
