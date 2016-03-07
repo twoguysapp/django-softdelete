@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from django.db.models import query
+from django.db.models import query, SET_NULL
 
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
@@ -142,7 +142,11 @@ class SoftDeleteObject(models.Model):
         try:
             instance_or_queryset.delete(changeset=changeset)
         except TypeError:
-            instance_or_queryset.delete()
+            if hasattr(related_field_instance, 'on_delete') and related_field_instance.on_delete == SET_NULL:
+                setattr(instance, related_field_instance.field.name, None)
+                instance.save()
+            else:
+                instance_or_queryset.delete()
 
     def delete(self, *args, **kwargs):
         if self.deleted_at:
